@@ -1,4 +1,5 @@
 """Represent models for near-Earth objects and their close approaches.
+
 The `NearEarthObject` class represents a near-Earth object. Each has a unique
 primary designation, an optional unique name, an optional diameter, and a flag
 for whether the object is potentially hazardous.
@@ -16,8 +17,8 @@ from helpers import cd_to_datetime, datetime_to_str
 
 
 class NearEarthObject:
-    
     """A near-Earth object (NEO).
+    
     An NEO encapsulates semantic and physical parameters about the object, such
     as its primary designation (required, unique), IAU name (optional), diameter
     in kilometers (optional - sometimes unknown), and whether it's marked as
@@ -26,7 +27,6 @@ class NearEarthObject:
     `NEODatabase` constructor.
     """
     def __init__(self, **info):
-        
         """Create a new `NearEarthObject`.
         :param info: A dictionary of excess keyword arguments 
         supplied to the constructor.
@@ -90,8 +90,8 @@ class NearEarthObject:
         print(f'The type of {key} is not a string')
 
     def append(self, аpproach):
-        
         """To add the information about a close approach.
+        
         :param аpproach: a close approach to addition
         :return: just add information
         """
@@ -99,7 +99,6 @@ class NearEarthObject:
             self.approaches.append(аpproach)
 
     def serialize(self):
-        
         """To serialize an object.
         :return: serialized object of NearEarth
         """
@@ -128,6 +127,7 @@ class NearEarthObject:
 
     def __repr__(self):
         """Return a computer-readable string representation.
+        
         Return `repr(self)`, a computer-readable string representation
         of this object.
         """
@@ -137,8 +137,8 @@ class NearEarthObject:
 
 
 class CloseApproach:
-    
     """A close approach to Earth by an NEO.
+    
     A `CloseApproach` encapsulates information about the NEO's close
     approach to Earth, such as the date and time (in UTC) of closest
     approach, the nominal approach distance in astronomical units,
