@@ -19,6 +19,7 @@ class NEODatabase:
     help fetch NEOs by primary designation or by name and to help speed up
     querying for close approaches that match criteria.
     """
+    
     def __init__(self, neos, approaches):
         """Create a new `NEODatabase`.
 
@@ -56,8 +57,8 @@ class NEODatabase:
 
 
     def get_neo_by_designation(self, designation):
-        
         """Find and return an NEO by its primary designation.
+        
         If no match is found, return `None` instead.
         Each NEO in the data set has a unique primary designation, as a string.
         The matching is exact - check for spelling and capitalization if no
@@ -65,7 +66,6 @@ class NEODatabase:
         :param designation: The primary designation of the NEO to search for.
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
-        
         if designation in self.neos_des_dict:
             neo = self.neos_des_dict.get(designation)
         else:
@@ -75,6 +75,7 @@ class NEODatabase:
 
     def get_neo_by_name(self, name):
         """Find and return an NEO by its name.
+        
         If no match is found, return `None` instead.
         Not every NEO in the data set has a name. No NEOs are associated with
         the empty string nor with the `None` singleton.
@@ -83,7 +84,6 @@ class NEODatabase:
         :param name: The name, as a string, of the NEO to search for.
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
-        
         if name in self.neos_name_dict:
             neo = self.neos_name_dict[name]
         else:
@@ -92,16 +92,16 @@ class NEODatabase:
         return neo
 
     def query(self, filters=()):
-        
         """Query close approaches to generate those that match a collection of filters.
+        
         This generates a stream of `CloseApproach` objects that match all of the
         provided filters. If no arguments are provided, generate all known close approaches.
         The `CloseApproach` objects are generated in internal order, which isn't
         guaranteed to be sorted meaninfully, although is often sorted by time.
+        
         :param filters: A collection of filters capturing user-specified criteria.
         :return: A stream of matching `CloseApproach` objects.
         """
-        
         for approach in self._approaches:
             flag = False in map(lambda f: f(approach), filters)
 

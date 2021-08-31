@@ -11,7 +11,6 @@ A `NearEarthObject` maintains a collection of its close approaches, and a
 The functions that construct these objects use information extracted from the
 data files from NASA, so these objects should be able to handle all of the
 quirks of the data set, such as missing names and unknown diameters.
-You'll edit this file in Task 1.
 """
 from helpers import cd_to_datetime, datetime_to_str
 
@@ -26,8 +25,10 @@ class NearEarthObject:
     initialized to an empty collection, but eventually populated in the
     `NEODatabase` constructor.
     """
+    
     def __init__(self, **info):
         """Create a new `NearEarthObject`.
+        
         :param info: A dictionary of excess keyword arguments 
         supplied to the constructor.
         """
@@ -87,6 +88,7 @@ class NearEarthObject:
         self.approaches = []
 
     def new_method(self, key):
+        """Print error message if key is not string."""
         print(f'The type of {key} is not a string')
 
     def append(self, аpproach):
@@ -100,6 +102,7 @@ class NearEarthObject:
 
     def serialize(self):
         """To serialize an object.
+        
         :return: serialized object of NearEarth
         """
         return {'designation': self.designation,
@@ -117,7 +120,6 @@ class NearEarthObject:
 
     def __str__(self):
         """Return `str(self)`."""
-        
         if self.hazardous:
             return f'NEO {self.name} has a diameter of {self.diameter} km ' \
                    f'and is potentially hazardous.'
@@ -152,6 +154,7 @@ class CloseApproach:
     
     def __init__(self, **info):
         """Create a new `CloseApproach`.
+        
         :param info: A dictionary of excess keyword arguments 
         supplied to the constructor.
         """
@@ -199,6 +202,7 @@ class CloseApproach:
 
     def serialize(self):
         """To serialize an object.
+        
         :return: serialized object of CloseApproach
         """
         return {'datetime_utc': datetime_to_str(self.time),
@@ -208,6 +212,7 @@ class CloseApproach:
     @property
     def designation(self):
         """To access to the self._designation.
+        
         :return: self._designation
         """
         return self._designation
@@ -215,6 +220,7 @@ class CloseApproach:
     @property
     def time_str(self):
         """Return a formatted representation of approach time.
+        
         The value in `self.time` should be a Python `datetime` object. While a
         `datetime` object has a string representation, the default
         representation includes seconds - significant figures that don't exist
@@ -234,6 +240,7 @@ class CloseApproach:
 
     def __repr__(self):
         """Return a computer-readable string representation.
+        
         Return repr(self)`, a computer-readable string representation of
         this object.
         """
