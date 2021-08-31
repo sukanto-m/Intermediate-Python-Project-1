@@ -1,56 +1,36 @@
 """Represent models for near-Earth objects and their close approaches.
-
 The `NearEarthObject` class represents a near-Earth object. Each has a unique
 primary designation, an optional unique name, an optional diameter, and a flag
 for whether the object is potentially hazardous.
-
 The `CloseApproach` class represents a close approach to Earth by an NEO. Each
 has an approach datetime, a nominal approach distance, and a relative approach
 velocity.
-
 A `NearEarthObject` maintains a collection of its close approaches, and a
 `CloseApproach` maintains a reference to its NEO.
-
 The functions that construct these objects use information extracted from the
 data files from NASA, so these objects should be able to handle all of the
 quirks of the data set, such as missing names and unknown diameters.
-
 You'll edit this file in Task 1.
 """
 from helpers import cd_to_datetime, datetime_to_str
 
 
 class NearEarthObject:
+    
     """A near-Earth object (NEO).
-
     An NEO encapsulates semantic and physical parameters about the object, such
     as its primary designation (required, unique), IAU name (optional), diameter
     in kilometers (optional - sometimes unknown), and whether it's marked as
-    potentially hazardous to Earth.
-
-    A `NearEarthObject` also maintains a collection of its close approaches -
+    potentially hazardous to Earth. A `NearEarthObject` also maintains a collection of its close approaches -
     initialized to an empty collection, but eventually populated in the
     `NEODatabase` constructor.
     """
-    # TODO: How can you, and should you, change the arguments to this constructor?
-    # If you make changes, be sure to update the comments in this file.
     def __init__(self, **info):
+        
         """Create a new `NearEarthObject`.
-
-        :param info: A dictionary of excess keyword arguments supplied to the constructor.
+        :param info: A dictionary of excess keyword arguments 
+        supplied to the constructor.
         """
-        # TODO: Assign information from the arguments passed to the constructor
-        # onto attributes named `designation`, `name`, `diameter`, and `hazardous`.
-        # You should coerce these values to their appropriate data type and
-        # handle any edge cases, such as a empty name being represented by `None`
-        # and a missing diameter being represented by `float('nan')`.
-        # onto attributes named `designation`, `name`, `diameter`, and `
-        # hazardous`.
-        # You should coerce these values to their appropriate data type
-        # and handle any edge cases, such as a empty name being
-        # represented by `None` and a missing diameter being represented
-        # by `float('nan')`.
-
         # parse the keyword parameters
         for key, value in info.items():
             # assign the designation parameter
@@ -99,16 +79,18 @@ class NearEarthObject:
                         self.hazardous = True
                     else:
                         self.hazardous = False
+                #print an error message
                 except ValueError:
-                   print(f'The type of {key} is not string')
+                   print(f'The type of {key} is not a string')
 
         # Create an empty initial collection of linked approaches.
         self.approaches = []
 
     def new_method(self, key):
-        print(f'The type of {key} is not string')
+        print(f'The type of {key} is not a string')
 
     def append(self, аpproach):
+        
         """To add the information about a close approach.
         :param аpproach: a close approach to addition
         :return: just add information
@@ -117,6 +99,7 @@ class NearEarthObject:
             self.approaches.append(аpproach)
 
     def serialize(self):
+        
         """To serialize an object.
         :return: serialized object of NearEarth
         """
@@ -135,9 +118,7 @@ class NearEarthObject:
 
     def __str__(self):
         """Return `str(self)`."""
-        # The project instructions include one possibility. Peek at the
-        # __repr__  # method for examples of advanced string formatting.
-
+        
         if self.hazardous:
             return f'NEO {self.name} has a diameter of {self.diameter} km ' \
                    f'and is potentially hazardous.'
@@ -156,6 +137,7 @@ class NearEarthObject:
 
 
 class CloseApproach:
+    
     """A close approach to Earth by an NEO.
     A `CloseApproach` encapsulates information about the NEO's close
     approach to Earth, such as the date and time (in UTC) of closest
@@ -167,19 +149,12 @@ class CloseApproach:
     but the referenced NEO is eventually replaced in the
     `NEODatabase` constructor.
     """
-
-    # If you make changes, be sure to update the comments in this file.
+    
     def __init__(self, **info):
         """Create a new `CloseApproach`.
-        :param info: A dictionary of excess keyword arguments supplied to the
-        constructor.
+        :param info: A dictionary of excess keyword arguments 
+        supplied to the constructor.
         """
-        # onto attributes named `_designation`, `time`, `distance`,
-        # and `velocity`.
-        # You should coerce these values to their appropriate data type
-        # and handle any edge cases.
-        # The `cd_to_datetime` function will be useful.
-
         # parse the keyword parameters
         for key, value in info.items():
             # assign the designation parameter
@@ -189,8 +164,8 @@ class CloseApproach:
                 try:
                     self._designation = str(value)
                 except ValueError:
-                    # print the text message
-                    print(f'The type of {key} is not string')
+                    # print an error message
+                    print(f'The type of {key} is not a string')
 
             # assign the time parameter
             elif key.lower() == 'cd':
@@ -200,7 +175,7 @@ class CloseApproach:
                     self.time = str(value)
                     self.time = cd_to_datetime(self.time)
                 except ValueError:
-                    print(f'The type of {key} is not string')
+                    print(f'The type of {key} is not a string')
 
             # assign the distance parameter
             elif key.lower() == 'dist':
@@ -209,7 +184,7 @@ class CloseApproach:
                 try:
                     self.distance = float(value)
                 except ValueError:
-                    print(f'The type of {key} is not float')
+                    print(f'The type of {key} is not a float')
 
             # assign the velocity parameter
             elif key.lower() == 'v_rel':
@@ -218,9 +193,9 @@ class CloseApproach:
                 try:
                     self.velocity = float(value)
                 except ValueError:
-                    print(f'The type of {key} is not float')
+                    print(f'The type of {key} is not a float')
 
-        self.neo = self._designation
+        self.neo = None
 
     def serialize(self):
         """To serialize an object.
@@ -253,12 +228,6 @@ class CloseApproach:
 
     def __str__(self):
         """Return `str(self)`."""
-        # The project instructions include one possibility. Peek at the
-        # __repr__ method for examples of advanced string formatting.
-        # return f"- On {self.time}, '{self.neo}' approaches Earth at a
-        # distance of {self.distance}"  f"au and a velocity of
-        # {self.velocity} km/s."
-
         return f'- On {self.time}, {self.neo.fullname} approaches Earth ' \
                f'at a distance of {round(self.distance, 2)} au' \
                f' and velocity of {round(self.velocity, 2)} km/s.'

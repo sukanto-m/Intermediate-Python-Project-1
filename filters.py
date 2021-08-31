@@ -13,8 +13,6 @@ the supplied `CloseApproach`.
 
 The `limit` function simply limits the maximum number of values produced by an
 iterator.
-
-You'll edit this file in Tasks 3a and 3c.
 """
 import operator
 from itertools import islice
@@ -60,10 +58,8 @@ class AttributeFilter:
     @classmethod
     def get(cls, approach):
         """Get an attribute of interest from a close approach.
-
-        Concrete subclasses must override this method to get an attribute of
-        interest from the supplied `CloseApproach`.
-
+        Concrete subclasses must override this method to get an 
+        attribute ofinterest from the supplied `CloseApproach`.
         :param approach: A `CloseApproach` on which to evaluate this filter.
         :return: The value of an attribute of interest, comparable to `self.value` via `self.op`.
         """
@@ -72,41 +68,52 @@ class AttributeFilter:
     def __repr__(self):
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
 
-class DateFilter(AttributeFilter):
+class DateFilter(AttributeFilter): 
     """
-    A class to filter date, start_date
-    and end_Date
-
+    A class to filter date, start_date and end_date
     """
-
     @classmethod
     def get(cls, approach):
+        """Method to access velocity attribute
+        :param: approach
+        :return: approach.time.date() """
         return approach.time.date()
 
 class DistanceFilter(AttributeFilter):
     """A class to filter distance (min and max)"""
     @classmethod
     def get(cls, approach):
+        """Method to access velocity attribute
+        :param: approach
+        :return: approach.distance """
         return approach.distance
 
 class VelocityFilter(AttributeFilter):
     """A class to filter min and max velocity"""
     @classmethod
     def get(cls, approach):
+        """Method to access velocity attribute
+        :param: approach
+        :return: approach.velocity"""
         return approach.velocity
 
 class DiameterFilter(AttributeFilter):
     """A class to filter min and max diameters"""
     @classmethod
     def get(cls, approach):
+        """Methdd to access diameter attribute
+        :param: approach
+        :return: approach.neo.diameter"""
         return approach.neo.diameter
 
 class HazardousFilter(AttributeFilter):
     """A class to filter hazardous parameter"""
     @classmethod
     def get(cls, approach):
+        """Method to access hazardous attribute
+        :param: approach
+        :return: approach.neo.hazardous"""
         return approach.neo.hazardous
-
 
 
 def create_filters(date=None, start_date=None, end_date=None,
@@ -114,7 +121,8 @@ def create_filters(date=None, start_date=None, end_date=None,
                    velocity_min=None, velocity_max=None,
                    diameter_min=None, diameter_max=None,
                    hazardous=None):
-    """Create a collection of filters from user-specified criteria.
+    """
+    Create a collection of filters from user-specified criteria.
 
     Each of these arguments is provided by the main module with a value from the
     user's options at the command line. Each one corresponds to a different type
@@ -143,7 +151,7 @@ def create_filters(date=None, start_date=None, end_date=None,
     :param hazardous: Whether the NEO of a matching `CloseApproach` is potentially hazardous.
     :return: A collection of filters for use with `query`.
     """
-    # TODO: Decide how you will represent your filters.
+    
     
     input_filters = []
 
@@ -179,18 +187,15 @@ def create_filters(date=None, start_date=None, end_date=None,
 
 
 def limit(iterator, n=None):
+    
     """Produce a limited stream of values from an iterator.
-
     If `n` is 0 or None, don't limit the iterator at all.
-
     :param iterator: An iterator of values.
     :param n: The maximum number of values to produce.
     :yield: The first (at most) `n` values from the iterator.
     """
-    # TODO: Produce at most `n` values from the given iterator.
     
     if n is None or n == 0:
         return islice(iterator, None)     
     else:
         return islice(iterator,n)
-    
